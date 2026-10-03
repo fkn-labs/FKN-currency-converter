@@ -1,6 +1,6 @@
-# Cedi Converter
+# FKN's Currency Converter
 
-A currency converter (focus on the Ghanaian Cedi) built with Express, Axios and EJS.
+A currency converter built with Express, Axios and EJS.
 Rates come from the free ExchangeRate-API open endpoint (no API key needed).
 
 ## Run it
