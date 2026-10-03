@@ -1,0 +1,17 @@
+{
+  "name": "cedi-converter",
+  "version": "1.0.0",
+  "description": "Currency converter built with Express, Axios and EJS",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.0",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "nodemon": "^3.1.14"
+  }
+}

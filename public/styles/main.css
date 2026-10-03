@@ -1,0 +1,158 @@
+:root {
+  --ink: #0d130f;
+  --panel: #18211b;
+  --field: #232f26;
+  --line: #34443a;
+  --text: #f1efe6;
+  --muted: #9fb0a5;
+  --gold: #fcd116;
+  --red: #ce1126;
+  --green: #00834a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  color: var(--text);
+  background: var(--ink);
+}
+
+/* The one bold element: a kente-style strip in Ghana's colours */
+.kente {
+  height: 18px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--gold) 0 28px, var(--red) 28px 56px, var(--green) 56px 84px, #000 84px 92px
+  );
+}
+
+.wrap { max-width: 600px; margin: 0 auto; padding: 44px 20px 56px; }
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 9vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+header p { margin: 12px 0 28px; color: var(--muted); font-size: 1.05rem; line-height: 1.5; }
+
+/* Form */
+.panel {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.field { display: grid; gap: 6px; min-width: 0; }
+.field span { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+
+input, select {
+  width: 100%;
+  padding: 14px;
+  font: inherit;
+  font-size: 1.05rem;
+  color: var(--text);
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+input { font-size: 1.6rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+input:focus-visible, select:focus-visible, button:focus-visible, a:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.pair { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: end; }
+
+.swap {
+  width: 48px; height: 48px;
+  font-size: 1.3rem;
+  color: var(--ink);
+  background: var(--gold);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.25s;
+}
+.swap:hover { transform: rotate(180deg); }
+
+.go {
+  padding: 15px;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  background: var(--gold);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.go:hover { filter: brightness(1.08); }
+.go:active { transform: translateY(2px); }
+
+/* Result */
+.result { margin-top: 28px; }
+.from-line { margin: 0; font-size: 1.2rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.big {
+  margin: 2px 0 14px;
+  font-size: clamp(2.6rem, 11vw, 4.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--gold);
+  word-break: break-word;
+  font-variant-numeric: tabular-nums;
+}
+.big span { font-size: 0.45em; color: var(--text); letter-spacing: 0; }
+.rate { margin: 0 0 4px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+h2 { margin: 30px 0 12px; font-size: 1.05rem; font-weight: 600; }
+
+.others { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 10px; }
+.others a {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--green);
+  border-radius: 10px;
+}
+.others a:hover { border-left-color: var(--gold); background: var(--field); }
+.code { font-weight: 800; }
+.val { font-variant-numeric: tabular-nums; color: var(--muted); overflow: hidden; text-overflow: ellipsis; }
+.updated { margin: 18px 0 0; font-size: 0.9rem; color: var(--muted); }
+
+/* Error */
+.error {
+  margin-top: 24px;
+  padding: 16px 18px;
+  background: #2a1517;
+  border: 1px solid var(--red);
+  border-left: 6px solid var(--red);
+  border-radius: 12px;
+}
+.error p { margin: 4px 0 0; }
+
+footer { margin-top: 44px; font-size: 0.9rem; color: var(--muted); }
+footer a { color: var(--gold); }
+
+@media (max-width: 520px) {
+  .pair { grid-template-columns: 1fr; }
+  .swap { justify-self: center; transform: rotate(90deg); }
+  .swap:hover { transform: rotate(270deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swap, .swap:hover { transition: none; }
+}

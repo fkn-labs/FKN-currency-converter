@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FKN' s 💰 Converter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body>
+  <div class="kente" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <header>
+      <h1>FKN' s 💰 Converter</h1>
+      <p>Live exchange rates for the Ghanaian Cedi and 150+ other currencies.</p>
+    </header>
+
+    <%# A plain GET form: the values go into the URL, so any result can be bookmarked or shared %>
+    <form class="panel" method="GET" action="/" id="form">
+      <label class="field">
+        <span>Amount</span>
+        <input type="number" name="amount" value="<%= amountInput %>" min="0" step="any" inputmode="decimal" required />
+      </label>
+
+      <div class="pair">
+        <label class="field">
+          <span>From</span>
+          <select name="from" id="from">
+            <% codes.forEach(function (c) { %>
+              <option value="<%= c %>" <%= c === from ? 'selected' : '' %>><%= c %><%= names[c] ? ' – ' + names[c] : '' %></option>
+            <% }) %>
+          </select>
+        </label>
+
+        <button type="button" class="swap" id="swap" aria-label="Swap currencies" title="Swap currencies">⇄</button>
+
+        <label class="field">
+          <span>To</span>
+          <select name="to" id="to">
+            <% codes.forEach(function (c) { %>
+              <option value="<%= c %>" <%= c === to ? 'selected' : '' %>><%= c %><%= names[c] ? ' – ' + names[c] : '' %></option>
+            <% }) %>
+          </select>
+        </label>
+      </div>
+
+      <button type="submit" class="go">Convert</button>
+    </form>
+
+    <% if (error) { %>
+      <section class="error" role="alert">
+        <strong>Couldn't convert</strong>
+        <p><%= error %></p>
+      </section>
+    <% } %>
+
+    <% if (result) { %>
+      <section class="result" aria-live="polite">
+        <p class="from-line"><%= result.amount %> <%= from %> =</p>
+        <p class="big"><%= result.converted %> <span><%= to %></span></p>
+        <p class="rate">1 <%= from %> = <%= result.rate %> <%= to %></p>
+        <p class="rate">1 <%= to %> = <%= result.inverse %> <%= from %></p>
+
+        <h2>The same amount in other currencies</h2>
+        <ul class="others">
+          <% result.others.forEach(function (o) { %>
+            <li>
+              <a href="/?amount=<%= encodeURIComponent(amountInput) %>&from=<%= from %>&to=<%= o.code %>">
+                <span class="code"><%= o.code %></span>
+                <span class="val"><%= o.value %></span>
+              </a>
+            </li>
+          <% }) %>
+        </ul>
+        <p class="updated">Rates last updated <%= result.updated %>. Updated about once a day.</p>
+      </section>
+    <% } %>
+
+    <footer>Rates by <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">ExchangeRate-API</a></footer>
+  </main>
+
+  <script>
+    // Swap button: flip the two dropdowns and convert again
+    document.getElementById("swap").addEventListener("click", function () {
+      var from = document.getElementById("from");
+      var to = document.getElementById("to");
+      var temp = from.value;
+      from.value = to.value;
+      to.value = temp;
+      document.getElementById("form").submit();
+    });
+  </script>
+</body>
+</html>
